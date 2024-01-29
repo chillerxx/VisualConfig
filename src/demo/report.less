@@ -1,0 +1,122 @@
+  .reportModelWrap {
+    .splitLine {
+      margin: 8px 0;
+      border: 0;
+      height: 1px;
+    }
+    .roomSd {
+      i {
+        z-index: 99;
+        font-size: 22px;
+        top: 3px;
+        position: absolute;
+      }
+    }
+    .headerWrap {
+      width: 100%;
+      padding: 4px 0px;
+      border: 1px solid rgb(211, 211, 211);
+      p {
+        margin: 0 0 0 8px !important;
+        span {
+          display: inline-block;
+          width: 50%;
+        }
+      }
+    }
+    .itemWrap {
+      > div {
+       padding-top: 16px;
+      }
+      display: inline-block;
+      width: 100%;
+      // .rangeLine {
+      //   color: rgb(0, 0, 0);
+      //   font-size: 20px;
+      // }
+      // .rangeLine::after {
+      //   color: rgb(202, 196, 196);
+      //   content: '|';
+      //   width: 8px;
+      //   height: 30px;
+      // }
+      .rangeLine {
+        position: relative;
+      }
+      .rangeLine::after {
+        left: 50%;
+        top: 0;
+        position: absolute;
+        background: #cac4c4;
+        display: inline-block;
+        content: '';
+        width: 2px;
+        height: 30px;
+      }
+      em {
+        font-style: normal;
+        font-size: 15px;
+        font-weight: 800;
+      }
+      h5 {
+        margin: 0 !important;
+        line-height: 18px;
+        padding: 2px;
+        width: 45%;
+        background: #c4e2b0;
+        position: relative;
+        span {
+          display: inline-block;
+          width: 120px;
+          text-align: right;
+          font-size: 15px;
+          font-style: normal;
+          margin-right: 16px;
+          position: absolute;
+          top: 2px;
+          right: 0;
+        }
+      }
+      table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        table-layout: fixed;
+        word-wrap: break-word;
+        word-break: break-all;
+        text-align: center;
+        .tableHeader {
+        border-bottom: 1px solid rgb(211, 211, 211);
+        }
+        border-bottom: 1px solid rgb(211, 211, 211);
+        th {
+          font-weight: 900;
+          padding: 0;
+          height: 25px;
+        }
+        td {
+          line-height: 30px;
+          padding: 0;
+        }
+      }
+      .bottomContent {
+        > span {
+          display: block;
+          font-weight: 800;
+          label {
+            display: inline-block;
+            width: 20%;
+          }
+          > span {
+            width: 80%;
+            display: inline-block;
+            font-weight: normal;
+            > span {
+              margin-left: 60%;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+
