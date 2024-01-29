@@ -1,0 +1,413 @@
+.indexContainer {
+    height: 100%;
+    color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    .ant-select {
+      width: 335px;
+    }
+
+    h4 {
+      color: #000;
+      margin: 0;
+      padding: 12px 0 4px 0;
+    }
+
+    .leftArea {
+      padding: 16px 8px 16px 16px;
+      overflow-y: auto;
+      background: #fff;
+      width: 446px;
+      min-width: 446px;
+      margin-right: 8px;
+      border-radius: 2px;
+      position: relative;
+
+      .elemsArea {
+        position: relative;
+        .elemWrap {
+          //padding-bottom: 50px;
+          display: flex;
+          flex-flow: wrap;
+          align-items: flex-start;
+
+          > div {
+            word-wrap: break-word;
+            border: 1px solid #dfdfdf;
+            border-radius: 2px;
+            width: 130px;
+            min-height: 40px;
+            margin: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: wrap;
+          }
+
+          > div:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .rightArea {
+      .ant-spin-nested-loading,
+      .ant-spin-container {
+        height: 100%;
+      }
+
+      .no-data {
+        position: relative;
+      }
+
+      background: #fff;
+      width: ~'calc(100% - 442px)';
+      border-radius: 2px;
+
+      .configArea {
+        height: ~'calc(100% - 53px)';
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .zoomArea {
+          position: absolute;
+
+          .configedElem {
+            min-width: 1px;
+            min-height: 1px;
+            box-sizing: border-box;
+            display: flex;
+            justify-items: center;
+            align-items: center;
+            //padding-left: 20px;
+            border: 0 solid;
+            //background: #ffffff;
+            cursor: move;
+          }
+          .anticon-delete {
+            display: none;
+          }
+        }
+        .zoomArea:hover {
+          .anticon-delete {
+            display: inline-block;
+            cursor: pointer;
+            color: #fff;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            line-height: 28px;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 2px;
+            right: 8px;
+            top: ~'calc(50% - 12px)';
+            font-size: 14px;
+          }
+        }
+        .curSelectedElem {
+          .anticon-delete {
+            cursor: pointer;
+            color: #fff;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            line-height: 28px;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 2px;
+            right: 8px;
+            top: ~'calc(50% - 12px)';
+          }
+          .zoomPonit {
+            border-radius: 50%;
+            margin-top: -2px;
+            margin-left: -2px;
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #188ef2;
+            display: inline-block;
+          }
+          .configedElem {
+            color: #188ef2;
+            border: 1px solid #188ef2 !important;
+          }
+        }
+        .canvasArea {
+          margin-bottom: 24px;
+          position: relative;
+          svg {
+            border-bottom: 1px solid rgba(186, 186, 186, 0.5);
+          }
+          .pageButton {
+            width: 110px;
+            position: absolute;
+            bottom: 0;
+            right: -120px;
+            button {
+              margin-bottom: 8px;
+            }
+          }
+          .pageNumMask {
+            i {
+              left: -50px;
+              color: rgba(0, 0, 0, 0.45);
+              position: absolute;
+            }
+            i:not(:first-child)::before {
+              border-bottom: 1px solid #dfdfdf;
+              display: inline-block;
+              content: ' ';
+              height: 1px;
+              width: 9999px;
+              position: absolute;
+              margin-left: -1000px;
+            }
+          }
+        }
+
+        .infoRow {
+          .anticon {
+            color: #188ef2;
+            padding-right: 8px;
+          }
+
+          margin-bottom: 8px;
+        }
+
+        .delIcon {
+          position: absolute;
+          left: 6px;
+          display: inline-block;
+          text-align: center;
+          width: 26px;
+          line-height: 30px;
+          border: 1px solid #dfdfdf;
+        }
+
+        .delIcon:hover {
+          color: #f04f43;
+          cursor: pointer;
+        }
+
+        .delMask {
+          position: absolute;
+          left: 32px;
+          z-index: 9999;
+          margin-left: 6px;
+          width: ~'calc(100% - 56px)';
+          height: 32px;
+          background: #fef5f4;
+
+          > span {
+            margin-top: -1px;
+            margin-left: -1px;
+            display: inline-block;
+            line-height: 31px;
+            padding-left: 16px;
+            border: 1px solid #f4b6bd;
+          }
+        }
+      }
+
+      .buttonArea {
+        border-top: 1px solid rgba(0, 0, 0, 0.09);
+        line-height: 52px;
+        text-align: right;
+        padding: 0 8px;
+
+        button {
+          margin-right: 8px;
+        }
+      }
+    }
+    .reportElem {
+      box-sizing: border-box;
+    }
+    .configReportArea {
+      position: relative;
+      overflow-y: auto;
+      .reportElem {
+        position: absolute;
+        border: 0 solid;
+      }
+    }
+  }
+
+  .editReportElem {
+    #textAlign >label{
+     //height: 28px;
+     padding: 0 8px;
+    }
+    .ant-drawer-body {
+      padding-top: 20px;
+    }
+    .editAttrWrap{
+      margin-left: 16px;
+      .ant-form-item-control {
+        width: 180px;
+      }
+    }
+    .uploadItem .ant-form-item-control {
+      width: 180px;
+    }
+    .ant-form {
+      > div {
+        margin-left: 30px;
+      }
+    }
+    .boldBtnText {
+      border-radius: 4px;
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      margin: 4px 0 0 0;
+      text-align: center;
+      font-size: 20px;
+      line-height: 28px;
+    }
+    .checkBold {
+      font-weight: bold;
+      background: #e6eaed;
+    }
+    .boldBtnText:hover {
+      background: #f3f3f8;
+    }
+    .colorPicker {
+      height: 36px;
+      position: relative;
+      > span {
+        border-radius: 4px;
+        cursor: pointer;
+        border: 3px solid #fff;
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        margin: 4px 0 0 0;
+      }
+      .w-color-sketch {
+        z-index: 99;
+        position: absolute;
+        left: -150px;
+      }
+      .whiteBackground {
+        border: 1px solid rgba(0, 0, 0, 0.15) !important;
+      }
+      .whiteBorder {
+        border: 1px solid rgba(0, 0, 0, 0.15) !important;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAALFJREFUWEftmLENAyEMRX2UjHChxmKX7JGZskd2QVCTG4GSpIqU6JL84nSST/q0XzZfz5/CTGLsTMb8CA2hiawI5ZzPzrmriMyoeKO+jDEuKaXbe5+VoVLKPYQwe+833ve/vPcurbVFVU/I0CPGuKuZV/Naq6jqB5RvhGiII/sVSGYIPVUSIiFEAOnMEAkhAkhnhkgIEUA6M0RCiADSD5shW4uiuVUazX1vnd8xiLA5Qk9MEdAl/mzmQgAAAABJRU5ErkJggg==)
+          no-repeat;
+        background-size: 26px 26px;
+      }
+    }
+    .ant-form-item{
+      margin-bottom: 4px;
+    }
+    .labelTop {
+      .ant-row {
+        flex-flow: column wrap;
+        .ant-form-item-control {
+          flex: none;
+        }
+      }
+    }
+    .labelBottom:not(:last-child){
+      margin-right: 16px;
+    }
+    .labelBottom {
+      .ant-row {
+        flex-flow: column-reverse wrap;
+        .ant-form-item-control {
+          flex: none;
+          .ant-form-item-control-input-content {
+            height: 36px;
+          }
+        }
+        .ant-form-item-label {
+          text-align: center;
+        }
+      }
+    }
+
+    .editAttr {
+      color: rgba(0, 0, 0, 0.65);
+    }
+    .editAttr:not(:first-child) {
+      display: inline-block;
+      width: 100%;
+      border-top: 1px solid rgba(0, 0, 0, 0.09);
+      padding-top: 15px;
+      margin-top: 8px;
+      padding-bottom: 8px;
+    }
+    .button-wrap {
+      margin: 0;
+    }
+    .ant-drawer-close {
+      position: absolute;
+      right: 0;
+    }
+    .ant-upload-picture-card-wrapper {
+      margin-top: 6px;
+      .ant-upload {
+        position: relative;
+        .anticon-plus {
+          padding-top: 5px;
+          color: #fff;
+          border-radius: 50%;
+          background: #188ef2;
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    .reportImgElem {
+      .anticon-delete {
+        display: none;
+      }
+    }
+    .reportImgElem:hover {
+      .delIcon {
+        width: 102px;
+        height: 102px;
+        background: rgba(0, 0, 0, 0.55);
+        display: inline-block;
+        position: absolute;
+        color: #fff;
+        left: 0;
+        top: 0;
+        .anticon-delete {
+          display: inline-block;
+          padding-top: 45px;
+        }
+      }
+    }
+  }
+
+  .configReportPreviewModal {
+    overflow: hidden;
+    padding: 30px 42px;
+    white-space: nowrap;
+    .ant-modal-body {
+      white-space: normal;
+      overflow-x: hidden;
+    }
+    .adapt-modal {
+      min-width: 800px;
+      min-height: 600px;
+      padding-bottom: 0;
+      margin-bottom: 50px;
+      max-height: 760px;
+      height: 100%;
+      .ant-modal-content {
+        max-height: 760px;
+        height: 100%;
+        .ant-modal-body {
+          max-height: 654px;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+
+
