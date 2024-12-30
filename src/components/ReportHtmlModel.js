@@ -90,7 +90,7 @@ const All = ({ reportsData, reportConfigedElems, renderCustomComponent, afterRep
       elem_.style.left = 0
       elem_.style.position = 'absolute'
       elem_.style.zIndex = 0 //默认在底层
-      const obj = { x, y, xSpan: 1, ySpan, content: elemComponent(reportData, elem_) }
+      const obj = { x, y, xSpan: 1, ySpan: 1, content: elemComponent(reportData, elem_) }
       floatTableObj[y] ? floatTableObj[y].push(obj) : floatTableObj[y] = [obj]
     })
     // 每行所有的colSpan
@@ -118,24 +118,39 @@ const All = ({ reportsData, reportConfigedElems, renderCustomComponent, afterRep
     return nSum > fSum ? nSum : fSum
   }
   // 转成table布局
-  const renderTableLayout = (reportData, elems, isFloat = false) => {
-    let tableObj = {}
-    let rowSpanObj = {}
+  const renderTableLayout = (reportData, elems) => {
     parseNormalTableData(elems, reportData)
     parseFloatTableData(elems, reportData)
-    if (isFloat) {
-      tableObj = floatTableObj
-      rowSpanObj = floatRowSpanObj
-    } else {
-      tableObj = normalTableObj
-      rowSpanObj = normalRowSpanObj
-    }
-    if (Object.keys(tableObj).length === 0) return null
+    if (Object.keys(floatTableObj).length === 0 && Object.keys(normalTableObj).length === 0) return null
     const totalRows = getTotalRows()
     const resArr = []
     for (let i = 1; i < totalRows; i++) {
-      const rowItems = tableObj[i]
-      if (rowItems) {
+      const rowItems = normalTableObj[i]
+      const floatItems = floatTableObj[i]
+      if (rowItems && floatItems) {
+        let allItems = [...floatItems.filter(f => !(rowItems.find(r => r.x === f.x))), ...rowItems]
+        allItems.sort((a, b) => a.x - b.x)
+        const rowArr = new Array(colGridNum).fill(true).map((v, i) => <td id={i} style={tdStyle} />)
+        // 当前行item替换
+        allItems.forEach((item, i) => {
+          const overlapFloatItem = floatItems.find(v => v.x === item.x)
+          console.log(1212, overlapFloatItem)
+          const startX = item.x - 1
+          rowArr.splice(startX, 1, <td style={tdStyle} colSpan={item.xSpan} rowSpan={item.ySpan}>
+            {overlapFloatItem ? overlapFloatItem.content : ''}
+            {item.content}
+          </td>)
+        })
+        // 删除当前和先前行span
+        for (const x in normalRowSpanObj[i]) {
+          if (Object.hasOwnProperty.call(normalRowSpanObj[i], x)) {
+            const xSpan = normalRowSpanObj[i][x]
+            let index = rowArr.findIndex(v => v.props.id === Number(x))
+            rowArr.splice(index, xSpan - 1)
+          }
+        }
+        resArr.push(<tr>{rowArr.map(v => v)}</tr>)
+      } else if (rowItems && (!floatItems)) {
         rowItems.sort((a, b) => a.x - b.x)
         const rowArr = new Array(colGridNum).fill(true).map((v, i) => <td id={i} style={tdStyle} />)
         // 当前行item替换
@@ -144,9 +159,26 @@ const All = ({ reportsData, reportConfigedElems, renderCustomComponent, afterRep
           rowArr.splice(startX, 1, <td style={tdStyle} colSpan={item.xSpan} rowSpan={item.ySpan}>{item.content}</td>)
         })
         // 删除当前和先前行span
-        for (const x in rowSpanObj[i]) {
-          if (Object.hasOwnProperty.call(rowSpanObj[i], x)) {
-            const xSpan = rowSpanObj[i][x]
+        for (const x in normalRowSpanObj[i]) {
+          if (Object.hasOwnProperty.call(normalRowSpanObj[i], x)) {
+            const xSpan = normalRowSpanObj[i][x]
+            let index = rowArr.findIndex(v => v.props.id === Number(x))
+            rowArr.splice(index, xSpan - 1)
+          }
+        }
+        resArr.push(<tr>{rowArr.map(v => v)}</tr>)
+      } else if ((!rowItems) && floatItems) {
+        floatItems.sort((a, b) => a.x - b.x)
+        const rowArr = new Array(colGridNum).fill(true).map((v, i) => <td id={i} style={tdStyle} />)
+        // 当前行item替换
+        floatItems.forEach((item, i) => {
+          const startX = item.x - 1
+          rowArr.splice(startX, 1, <td style={tdStyle} colSpan={item.xSpan} rowSpan={item.ySpan}>{item.content}</td>)
+        })
+        // 删除当前和先前行span
+        for (const x in floatRowSpanObj[i]) {
+          if (Object.hasOwnProperty.call(floatRowSpanObj[i], x)) {
+            const xSpan = floatRowSpanObj[i][x]
             let index = rowArr.findIndex(v => v.props.id === Number(x))
             rowArr.splice(index, xSpan - 1)
           }
@@ -204,9 +236,9 @@ const All = ({ reportsData, reportConfigedElems, renderCustomComponent, afterRep
           {renderTableLayout(report, initElemsConfigCopy_)}
         </table>
         {/* 浮动元素图层 */}
-        <table style={{ width: '100%', position: 'absolute', left: 0, top: 0, borderCollapse: 'collapse' }}>
+        {/* <table style={{ width: '100%', position: 'absolute', left: 0, top: 0, borderCollapse: 'collapse' }}>
           {renderTableLayout(report, initElemsConfigCopy_, true)}
-        </table>
+        </table> */}
       </>
       : initElemsConfigCopy_.map((elem, i) => {
         // 适配后端生成pdf加粗

@@ -16,7 +16,7 @@ const initStyle = {
     left: 0
   },
   customComponent: {
-    width: gridW * 44,
+    width: gridW * 46,
     height: gridH * 2,
     fontSize: 14,
     fontWeight: 'normal',
@@ -39,7 +39,7 @@ const initStyle = {
   },
   line: {
     zoomGrid: true,
-    width: gridW * 44,
+    width: gridW * 46,
     height: 1,
     fontSize: 14,
     fontWeight: 'normal',
@@ -112,7 +112,7 @@ const customElemMap = [
     id: 'line',
     component: 'line',
     style: {
-      width: gridW * 44,
+      width: gridW * 46,
       height: gridH,
       fontSize: 14,
       fontWeight: 'normal',
@@ -129,7 +129,7 @@ const customElemMap = [
     id: 'pageLine',
     component: 'line',
     style: {
-      width: gridW * 44,
+      width: gridW * 46,
       height: gridH,
       fontSize: 14,
       fontWeight: 'normal',

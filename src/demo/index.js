@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render } from 'react-dom';
 //import { ReportConfig } from 'visual-config-report'
-import { ReportConfig } from '../components/index';
+// import { ReportConfig } from '../components/index';
+import { ReportConfig } from '../../dist/visualreportconfig';
+
 import './report.less'
 import { mockReportData } from './initConfig'
 
@@ -141,9 +143,9 @@ let baseElems = [
   }
 ]
 const reportTypeList = [
-  { value: '新筛-室间质评计划报告', key: 'XS' },
-  { value: '产筛-室间质评计划报告', key: 'CS' },
-  { value: '核筛-室间质评计划报告', key: 'HX' }
+  { label: '新筛-室间质评计划报告', value: 'XS' },
+  { label: '产筛-室间质评计划报告', value: 'CS' },
+  { label: '核筛-室间质评计划报告', value: 'HX' }
 ]
 
 const data = [
@@ -1109,20 +1111,55 @@ const beforeReportRender = (configList, report) => {
   return configList
 }
 
-render(
-  <ReportConfig
+
+
+const App = () => {
+  const [list, setList] = useState([])
+  const renderBtns = () => {
+    const onReset = () => {
+      setList([{
+        id: 'labDate',
+        label: '测定日期',
+        component: 'baseText',
+        dynamic: false,
+        style: {
+          borderColor: '#000',
+          color: '#000',
+          textAlign: 'center',
+          isFloat: false,
+          justifyContent: 'center',
+          borderRadius: 0,
+          top: 1005,
+          left: 0,
+          borderWidth: 0,
+          background: '#ffffff',
+          width: 690,
+          fontSize: 14,
+          fontWeight: 'normal',
+          height: 30
+        }
+      }])
+    }
+    return <>
+      <button onClick={onReset}>重制</button>
+    </>
+  }
+  return <ReportConfig
     onTable={true}
     //AddElems={() => BackupField(getBaseELem)}
     reportTypeList={reportTypeList}
     baseElems={baseElems}
     totalPage={2}
-    configElemsList={data}
-    defaultElemsList={[]}
-    onSaveReportConfig={() => { }}
+    configElemsList={list}
     mockReportData={mockReportData}
     renderCustomComponent={renderCustomComponent}
     beforeReportRender={beforeReportRender}
-  />,
+    renderBtns={renderBtns}
+  />
+}
+
+render(
+  <App />,
   document.getElementById('root'));
 
 

@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 const reportConfigModel = () => {
   const [configElemsList, setConfigElemsList] = useState([])
-  const [defaultElemsList, setDefaultElemsList] = useState([])
   const [curSelectedElemIndex, setCurSelectedElemIndex] = useState('')
   const [addedElem, setAddedElem] = useState('')
   const [curEditElem, setCurEditElem] = useState(null)
@@ -20,7 +19,6 @@ const reportConfigModel = () => {
     curSelectedElemIndex,
     addedElem,
     configElemsList,
-    defaultElemsList,
     curEditElem,
     totalPage,
     updateState

@@ -9,29 +9,24 @@ import { initStyle, elemMap } from './initData'
 import { reportConfigStore } from "./model"
 import './index.less'
 
-const Option = Select.Option
-
-const App = ({ renderBtns, renderPreview, AddElems, reportTypeList, totalPage, configElemsList, defaultElemsList, baseElems, onTable,
-  onChangeReportType, onSaveReportConfig, renderCustomComponent, beforeReportRender, mockReportData }) => {
+const App = ({ renderBtns, renderLeftArea, AddElems, reportTypeList, totalPage, configElemsList, baseElems, onChangeReportType }) => {
   const { updateState } = reportConfigStore()
   const [elemList, setElemList] = useState([])
   const [reportType, setReportType] = useState()
 
   // 初始化查询
   useEffect(() => {
-    setReportType(reportTypeList && reportTypeList[0].key || '')
-  }, [])
+    reportTypeList?.length && setReportType(reportTypeList[0].value)
+  }, [reportTypeList])
 
   // 切换页面 修改传入的configList
   useEffect(() => {
-    onChangeReportType && onChangeReportType(reportType)
+    reportType && onChangeReportType && onChangeReportType(reportType)
   }, [reportType])
 
   useEffect(() => {
-    let obj = defaultElemsList
-    if (configElemsList.length) { obj = configElemsList }
-    updateState({ setDefaultElemsList: defaultElemsList, setConfigElemsList: obj })
-  }, [configElemsList, defaultElemsList])
+    updateState({ setConfigElemsList: configElemsList, setCurSelectedElemIndex: '' })
+  }, [configElemsList])
   useEffect(() => {
     elemMap[0].elems = baseElems
     setElemList([...elemMap])
@@ -78,16 +73,9 @@ const App = ({ renderBtns, renderPreview, AddElems, reportTypeList, totalPage, c
   return (
     <div className='indexContainer'>
       <section className='leftArea'>
-        选择页面：
-        <Select placeholder='请选择' onChange={onChangeReport} value={reportType}>
-          {reportTypeList.map((item, index) => {
-            return (
-              <Option key={index} value={item.key}>
-                {item.value}
-              </Option>
-            )
-          })}
-        </Select>
+        {renderLeftArea && renderLeftArea()}
+        选择报告：
+        <Select placeholder='请选择' onChange={onChangeReport} value={reportType} options={reportTypeList} />
         <div className='elemsArea'>
           {elemList.length && AddElems ? <AddElems /> : null}
           {initElemArea()}
@@ -100,16 +88,7 @@ const App = ({ renderBtns, renderPreview, AddElems, reportTypeList, totalPage, c
           <CanvasArea />
           <ElemEditDrawer />
         </div>
-        <ButtonArea
-          renderBtns={renderBtns}
-          renderPreview={renderPreview}
-          onTable={onTable}
-          reportType={reportType}
-          onSaveReportConfig={onSaveReportConfig}
-          renderCustomComponent={renderCustomComponent}
-          beforeReportRender={beforeReportRender}
-          mockReportData={mockReportData}
-        />
+        <ButtonArea renderBtns={renderBtns} reportType={reportType} />
       </section>
     </div >
   )
